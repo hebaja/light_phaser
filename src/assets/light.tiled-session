@@ -1,0 +1,50 @@
+{
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "Todos os Ficheiros (*)",
+    "fileStates": {
+        "#spritesheet-backgrounds-default": {
+            "scaleInDock": 1
+        },
+        "map.json#blue_tile": {
+            "dynamicWrapping": true
+        },
+        "map.json#tilemap_packed": {
+            "dynamicWrapping": false
+        },
+        "tilemap.tsj": {
+            "scaleInDock": 1,
+            "scaleInEditor": 3.5044
+        },
+        "tilemap_packed.tsj": {
+            "scaleInDock": 1,
+            "scaleInEditor": 3.7259
+        },
+        "tilemap_packed.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 3.4864
+        }
+    },
+    "last.externalTilesetPath": "/home/hebatist/42/light_phaser/src/assets",
+    "last.imagePath": "/home/hebatist/42/light_phaser/src/assets",
+    "map.lastUsedFormat": "json",
+    "map.tileHeight": 18,
+    "map.tileWidth": 18,
+    "openFiles": [
+    ],
+    "project": "light.tiled-project",
+    "recentFiles": [
+        "tilemap_packed.tsx",
+        "tilemap_packed.tsj",
+        "tilemap.tsj"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.lastUsedFilter": "Todos os Ficheiros (*)",
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 18,
+        "width": 18
+    },
+    "tileset.type": 0
+}
