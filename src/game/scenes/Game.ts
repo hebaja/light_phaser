@@ -4,6 +4,7 @@ import { Player } from '../objects/Player';
 export class Game extends Scene
 {
     private player!: Player
+    private light!: Phaser.GameObjects.Light
 
     constructor ()
     {
@@ -55,15 +56,15 @@ export class Game extends Scene
 		
 		this.lights.setAmbientColor(0x333333)
 
-		const light = this.lights.addLight(200, 200, 200)
-		light.setIntensity(2)
-		light.setColor(0xffffff)
-
-
+		this.light = this.lights.addLight(200, 200, 200)
+		this.light.setIntensity(2)
+		this.light.setColor(0xffffff)
     }
 
     update ()
     {
         this.player.update()
+        this.light.setPosition(this.player.x, this.player.y)
+
     }
 }
