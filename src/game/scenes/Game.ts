@@ -1,5 +1,10 @@
+import { Scene } from 'phaser';
+import { Player } from '../objects/Player';
+
 export class Game extends Scene
 {
+    private player!: Player
+
     constructor ()
     {
         super('Game');
@@ -7,57 +12,58 @@ export class Game extends Scene
 
     preload ()
     {
-        this.load.setPath('src/game/assets');
+        this.load.setPath('src/assets');
 
-        // this.load.tilemapTiledJSON('level', 'tiny/tilemap.json')
-        // this.load.image('Tilemap_color1_img', 'tiny/Terrain/Tileset/Tilemap_color1.png')
-        // this.load.image('sky_tile_img', 'tiny/sky_tile.png')
+        this.load.tilemapTiledJSON('level', 'map.json')
+        this.load.image('tilemap_packed', 'tilemap/tilemap_packed.png')
+        this.load.image('blue_tile', 'blue_tile.png')
 
-        // Player.preload(this)
-        // Gold.preload(this)
-        // Enemy.preload(this)
-
-        // this.load.spritesheet('ground', 'Tilemap_color1.png', {
-        //     frameHeight: 32,
-        //     frameWidth: 32,
-        // })
+		Player.preload(this)
     }
 
     create ()
     {
-        // for (let x = 0; x < 3; x++) {
-        //     this.add.image(512 * (x + (x + 1)) , 1024 / 2, 'background')
-        // }
+		this.lights.enable()
 
-        // const groundPlatform = this.createPlatform(14, 1010, 32 * 3, 0, 1, 5)
 
-        // const floatingPlatformUpper = this.createPlatform(564, 450, 8, 108, 109, 113)
-        // const floatingPlatformBottom = this.createPlatform(564, 450 + 32, 8, 126, 127, 131)
+		const map = this.add.tilemap('level')
+		if (!map)
+			throw Error("tilemap not loaded")
 
-        // this.golds[0].body?.setSize(55, 35)
+		const ground = map.addTilesetImage('tilemap_packed','tilemap_packed')
+		const sky = map.addTilesetImage('blue_tile','blue_tile')
 
-        // this.physics.add.collider(this.player, groundPlatform)
-        // this.physics.add.collider(this.enemy, groundPlatform)
+		if (!ground || !sky)
+			throw Error("layer not loaded")
 
-        // this.physics.add.collider(this.golds[0], groundPlatform)
-        // this.physics.add.collider(this.golds[1], groundPlatform)
-        
-        // this.physics.add.collider(this.player, floatingPlatformUpper)
-        // this.physics.add.collider(this.player, floatingPlatformBottom)
-        
-		// Ensure Player.hitEnemy runs with `this` bound to the Player instance.
-		// this.physics.add.overlap(this.player.attackHitbox, this.enemy, this.player.hitEnemy, undefined, this.player)
+		const groundLayer = map.createLayer(0, ground, 0, 0)
+		const skyLayer = map.createLayer(1, sky, 0, 0)
+		const backgroundLayer = map.createLayer(2, ground, 0, 0)
 
-        // this.createFloatingPlatform(256, 705, 16)
-        // this.createFloatingPlatform(564, 450, 8)
-        // this.createFloatingPlatform(1024, 636, 20)
-        // this.createFloatingPlatform(2048, 700, 10)
-        // this.createFloatingPlatform(1712, 400, 10)
-        // this.createFloatingPlatform(150, 200, 9)
+		if (!groundLayer || !skyLayer || !backgroundLayer)
+			throw Error("layer problem")
+
+		groundLayer.setPipeline('Light2D')
+		skyLayer.setPipeline('Light2D')
+		backgroundLayer.setPipeline('Light2D')
+
+		this.player = new Player(this, 100, 100)
+		this.player.setDepth(100)
+
+		groundLayer?.setCollisionByExclusion([-1])
+		this.physics.add.collider(this.player, groundLayer)
+		
+		this.lights.setAmbientColor(0x333333)
+
+		const light = this.lights.addLight(200, 200, 200)
+		light.setIntensity(2)
+		light.setColor(0xffffff)
+
 
     }
 
     update ()
     {
+        this.player.update()
     }
 }

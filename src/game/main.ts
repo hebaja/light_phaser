@@ -1,23 +1,25 @@
 import { Game as MainGame } from './scenes/Game';
-import { AUTO, Game, Scale,Types } from 'phaser';
+import { AUTO, Game, Scale } from 'phaser';
+import type { Types } from 'phaser';
+
 
 // Find out more information about the Game Config at:
 // https://docs.phaser.io/api-documentation/typedef/types-core#gameconfig
 const config: Types.Core.GameConfig = {
     type: AUTO,
-    width: 1024,
-    height: 1024,
+    width: 630,
+    height: 414,
     parent: 'game-container',
     backgroundColor: '#000000',
     pixelArt: true,
     physics: {
         default: 'arcade',
-        arcade: {
-            debug: true
-        }
+        //arcade: {
+        //    debug: true
+        //}
     },
     scale: {
-        mode: Scale.FIT,
+        mode: Scale.NONE,
         autoCenter: Scale.CENTER_BOTH
     },
     scene: [
