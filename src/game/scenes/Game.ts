@@ -44,9 +44,9 @@ export class Game extends Scene
 		if (!groundLayer || !skyLayer || !backgroundLayer)
 			throw Error("layer problem")
 
-		groundLayer.setPipeline('Light2D')
-		skyLayer.setPipeline('Light2D')
-		backgroundLayer.setPipeline('Light2D')
+		groundLayer.setLighting(true)
+		skyLayer.setLighting(true)
+		backgroundLayer.setLighting(true)
 
 		this.player = new Player(this, 100, 100)
 		this.player.setDepth(100)
@@ -56,15 +56,21 @@ export class Game extends Scene
 		
 		this.lights.setAmbientColor(0x333333)
 
-		this.light = this.lights.addLight(200, 200, 200)
-		this.light.setIntensity(2)
-		this.light.setColor(0xffffff)
+		this.light = this.lights.addConeLight(
+			this.player.x,
+		    this.player.y,
+		320,
+			0xffcc88,
+    4,
+			Math.PI / 2,
+			0.6,
+			1.2
+		)
     }
 
     update ()
     {
         this.player.update()
         this.light.setPosition(this.player.x, this.player.y)
-
     }
 }

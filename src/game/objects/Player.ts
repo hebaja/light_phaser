@@ -1,4 +1,4 @@
-import type { Scene } from "phaser";
+import { Input, Physics, type Scene } from "phaser";
 
 type PlayerControls = {
 	left: Phaser.Input.Keyboard.Key;
@@ -11,7 +11,7 @@ type PlayerControls = {
 	S: Phaser.Input.Keyboard.Key;
 }
 
-export class Player extends Phaser.Physics.Arcade.Sprite {
+export class Player extends Physics.Arcade.Sprite {
 	private controls: PlayerControls
 	private keyboard: any
 
@@ -27,14 +27,14 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
 		this.keyboard = scene.input.keyboard
 		this.controls = this.keyboard?.addKeys({
-			left: Phaser.Input.Keyboard.KeyCodes.LEFT,
-			right: Phaser.Input.Keyboard.KeyCodes.RIGHT,
-            up: Phaser.Input.Keyboard.KeyCodes.UP,
-			down: Phaser.Input.Keyboard.KeyCodes.DOWN,
-            A: Phaser.Input.Keyboard.KeyCodes.A,
-            D: Phaser.Input.Keyboard.KeyCodes.D,
-            W: Phaser.Input.Keyboard.KeyCodes.W,
-            S: Phaser.Input.Keyboard.KeyCodes.S
+			left: Input.Keyboard.KeyCodes.LEFT,
+			right: Input.Keyboard.KeyCodes.RIGHT,
+            up: Input.Keyboard.KeyCodes.UP,
+			down: Input.Keyboard.KeyCodes.DOWN,
+            A: Input.Keyboard.KeyCodes.A,
+            D: Input.Keyboard.KeyCodes.D,
+            W: Input.Keyboard.KeyCodes.W,
+            S: Input.Keyboard.KeyCodes.S
         })
 	}
 
