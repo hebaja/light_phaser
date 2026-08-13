@@ -60,7 +60,15 @@ export class Game extends Scene
 		
 		this.lights.setAmbientColor(0x333333)
 
-		this.light = this.lights.addLight(this.player.x, this.player.y, 320, 0xffcc88, 10)
+		this.light = pipeline.addConeLight(
+			this,
+			this.player.x,
+			this.player.y,
+			420,
+			0xffcc88,
+			6,
+			Math.PI / 3
+		);
 		this.cone = pipeline;
     }
 
@@ -68,7 +76,7 @@ export class Game extends Scene
     {
         this.player.update()
         this.light.setPosition(this.player.x, this.player.y)
-
+		
 		/*
         const body = this.player.body as Phaser.Physics.Arcade.Body;
         if (body) {
@@ -76,8 +84,8 @@ export class Game extends Scene
             const vy = body.velocity.y;
             if (vx !== 0 || vy !== 0) {
                 const len = Math.sqrt(vx * vx + vy * vy);
-                this.cone.coneDirectionX = vx / len;
-                this.cone.coneDirectionY = -vy / len;
+                (this.light as any)._coneDirectionX = vx / len;
+                (this.light as any)._coneDirectionY = -vy / len;
             }
         }
 		*/
