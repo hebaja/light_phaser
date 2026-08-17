@@ -64,12 +64,45 @@ export class Game extends Scene
 			this,
 			this.player.x,
 			this.player.y,
-			420,
+			1500,
 			0xffcc88,
-			6,
-			Math.PI / 3
+			10,
+			Math.PI / 3.5
 		);
 		this.cone = pipeline;
+
+
+		this.events.on('emit_confetti', () => {
+			const graphics = this.add.graphics();
+			graphics.fillStyle(0xffffff, 1);
+			graphics.fillRect(0, 0, 10, 3);
+			graphics.generateTexture('confetti', 10, 3);
+			graphics.destroy();
+
+			const emitter = this.add.particles(150, 150, 'confetti', {
+				speed: { min: 150, max: 350 },
+				angle: { min: 200, max: 340 },
+				gravityY: 500,
+				lifespan: 1500,
+				quantity: 40,
+				scale: { start: 0.8, end: 0.3 },
+				alpha: { start: 1, end: 0 },
+
+				rotate: { min: 0, max: 360 },
+
+				tint: [
+					0xff595e,
+					0xffca3a,
+					0x8ac926,
+					0x1982c4,
+					0x6a4c93
+				],
+
+				emitting: false
+			})
+
+			emitter.explode(20);
+		})
     }
 
     update ()

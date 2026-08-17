@@ -1,4 +1,4 @@
-import type { Scene } from "phaser";
+import { Input, type Scene } from "phaser";
 
 type PlayerControls = {
 	left: Phaser.Input.Keyboard.Key;
@@ -9,11 +9,13 @@ type PlayerControls = {
 	D: Phaser.Input.Keyboard.Key;
 	W: Phaser.Input.Keyboard.Key;
 	S: Phaser.Input.Keyboard.Key;
+	J: Phaser.Input.Keyboard.Key;
 }
 
 export class Player extends Phaser.Physics.Arcade.Sprite {
 	private controls: PlayerControls
 	private keyboard: any
+	private mainScene: Scene
 
 	static preload(scene: Scene) {
 		scene.load.image('block', 'block.png')
@@ -21,6 +23,8 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
 	constructor(scene: Phaser.Scene, x: number, y: number) {
 		super(scene, x, y, 'block')
+
+		this.mainScene = scene
 
 		scene.add.existing(this)
 		scene.physics.add.existing(this)
@@ -34,8 +38,13 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             A: Phaser.Input.Keyboard.KeyCodes.A,
             D: Phaser.Input.Keyboard.KeyCodes.D,
             W: Phaser.Input.Keyboard.KeyCodes.W,
-            S: Phaser.Input.Keyboard.KeyCodes.S
+            S: Phaser.Input.Keyboard.KeyCodes.S,
+			J: Phaser.Input.Keyboard.KeyCodes.J
         })
+	}
+	
+	emitConfetti() {
+		this.mainScene.events.emit('emit_confetti')
 	}
 
 	update(): void {
@@ -47,6 +56,8 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 			this.setVelocityY(-150)
 		} else if (this.controls.down.isDown || this.controls.S.isDown) {
 			this.setVelocityY(150)
+		} else if (Input.Keyboard.JustDown(this.controls.J)) {
+			this.emitConfetti()
 		} else {
 			this.setVelocity(0, 0)
 		}
